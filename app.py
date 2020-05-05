@@ -16,6 +16,7 @@ from flask_wtf import Form
 from forms import *
 import sys
 from flask_marshmallow import Marshmallow
+from marshmallow_sqlalchemy import ModelSchema
 from datetime import datetime
 #----------------------------------------------------------------------------#
 # App Config.
