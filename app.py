@@ -15,7 +15,6 @@ from logging import Formatter, FileHandler
 from flask_wtf import Form
 from forms import *
 import sys
-from flask_marshmallow import Marshmallow
 from marshmallow_sqlalchemy import ModelSchema
 from datetime import datetime
 #----------------------------------------------------------------------------#
@@ -29,7 +28,6 @@ db = SQLAlchemy(app)
 
 # TODO: connect to a local postgresql database
 migrate = Migrate(app, db)
-ma = Marshmallow(app)
 
 #----------------------------------------------------------------------------#
 # Models.
@@ -42,7 +40,7 @@ class Show(db.Model):
     venue_id = db.Column(db.Integer, db.ForeignKey('Venue.id'), nullable=False)
     start_time = db.Column(db.String(), nullable=False)
 
-class ShowSchema(ma.ModelSchema):
+class ShowSchema(ModelSchema):
   class Meta:
     model = Show  
 
@@ -59,7 +57,7 @@ class Artist(db.Model):
     facebook_link = db.Column(db.String(120), nullable=True)
     shows = db.relationship('Show', backref='Artist', lazy=True)
 
-class ArtistSchema(ma.ModelSchema):
+class ArtistSchema(ModelSchema):
   class Meta:
     model = Artist  
 
@@ -82,7 +80,7 @@ class Venue(db.Model):
     shows = db.relationship('Show', backref='Venue', lazy=True)
 
 
-class VenueSchema(ma.ModelSchema):
+class VenueSchema(ModelSchema):
   class Meta:
     model = Venue  
 
